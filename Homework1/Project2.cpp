@@ -14,7 +14,7 @@
 using namespace std;
 
 void insertPlanet(vector<Planet> &planets, Planet planet);
-
+string addComma(long long number);
 
 int main()
 {
@@ -81,15 +81,15 @@ int main()
     cout << "-------    --------    ------------" << endl;
     for (int i = 0; i < planets.size(); i++)
     {
-        cout << setw(tsize_planet) << left << planets.at(i).get_name();
-        cout << setw(tsize_diameter) << right << planets.at(i).get_diameter();
-        cout << setw(tsize_dist) << right << planets.at(i).get_dist() << endl;
-        total_diameter += planets.at(i).get_diameter();
-        total_dist += planets.at(i).get_dist();
+        cout << setw(tsize_planet) << left << planets.at(i).get_name(); //apply justification sizes at output
+        cout << setw(tsize_diameter) << right << addComma(planets.at(i).get_diameter()); //getting values from organized planets array
+        cout << setw(tsize_dist) << right << addComma(planets.at(i).get_dist()) << endl;
+        total_diameter += planets.at(i).get_diameter(); //every iteration, adding planet at index to total diameter
+        total_dist += planets.at(i).get_dist(); //and dist
     }
-    cout << setw(tsize_planet) << left << "Totals:";
-    cout << setw(tsize_diameter) << right << total_diameter;
-    cout << setw(tsize_dist) << right << total_dist << endl;
+    cout << setw(tsize_planet) << left << "Totals:"; //reporting totals using same justifications
+    cout << setw(tsize_diameter) << right << addComma(total_diameter);
+    cout << setw(tsize_dist) << right << addComma(total_dist) << endl;
 
     return 0;
 }
@@ -123,4 +123,22 @@ void insertPlanet(vector<Planet> &planets, Planet planet)
     {
         planets.push_back(planet);
     }
+
+}
+
+string addComma(long long number)
+{
+    string s_number = to_string(number);
+    string::iterator it = s_number.end(); //place new iterator at end of string
+    int initial_size = s_number.size(); //dont want the added commas to affect the loop
+    for (int i = 1; i < initial_size; i++) //cant be a comma on the last (first) character (so last char cycle is omitted)
+    {
+        it--; //reads through string backwards
+        if (i % 3 == 0) //every 3 digits
+        {
+            s_number.insert(it, ','); //insert a comma
+        }
+    }
+
+    return s_number; //return new string
 }
