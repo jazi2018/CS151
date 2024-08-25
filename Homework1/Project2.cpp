@@ -15,6 +15,7 @@ using namespace std;
 
 void insertPlanet(vector<Planet> &planets, Planet planet);
 
+
 int main()
 {
     const int NUM_PLANETS = 13;
@@ -72,6 +73,23 @@ int main()
     //Venus
     Planet venus("Venus", 12104, 108200000);
     insertPlanet(planets, venus);
+
+    int tsize_planet = 10, tsize_diameter = 9, tsize_dist = 16; //determine size for justifications
+    long long total_diameter = 0, total_dist = 0;
+    cout << " Solar System Planets by Distance" << endl; //format header
+    cout << "Planet     Diameter    Dist. to Sun" << endl;
+    cout << "-------    --------    ------------" << endl;
+    for (int i = 0; i < planets.size(); i++)
+    {
+        cout << setw(tsize_planet) << left << planets.at(i).get_name();
+        cout << setw(tsize_diameter) << right << planets.at(i).get_diameter();
+        cout << setw(tsize_dist) << right << planets.at(i).get_dist() << endl;
+        total_diameter += planets.at(i).get_diameter();
+        total_dist += planets.at(i).get_dist();
+    }
+    cout << setw(tsize_planet) << left << "Totals:";
+    cout << setw(tsize_diameter) << right << total_diameter;
+    cout << setw(tsize_dist) << right << total_dist << endl;
 
     return 0;
 }
