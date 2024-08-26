@@ -1,0 +1,10 @@
+Jared Ziv
+
+8. Zero (0)
+
+20. A reference to the array
+
+22. 2 14 8
+
+32. THe program will report the correct total for array 1, but not array 2. The variable "total" needs to be reset to 0 in between the two for loops.
+As it is right now, it will report the total of both arrays combined at the end.
