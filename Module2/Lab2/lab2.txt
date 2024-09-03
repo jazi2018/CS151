@@ -1,0 +1,59 @@
+Algorithm 1: Vending Machine Change
+    1. Initialize variables to zero: quarters, dimes, nickles, pennies
+    2. Subtract the selected item's price (in cents) from 100. Assign to a variable "change"
+    3. Using this value begin a loop while change > 0
+        a. If change is greater than or equal to 25, subtract 25 and add one to quarters. Restart loop.
+        b. Else if change is greater than or equal to 10, subtract 10 and add one to dimes. Restart loop.
+        c. Else if change is greater than or equal to 5, subtract 5 and add one to nickles. Restart loop.
+        d. Else, set pennies equal to change. Set change to 0.
+    4. Dispense coins equal to their respective values (i.e. if quarters was set equal to 3 and dimes equal to 1, dispense 3 quarters and 1 dime)
+
+Algorithm 2: Horse Movers
+    1. Start at the first stall
+    2. Add one to the total number of horses
+    3. Weigh the horse, add it to the total weight of the horses
+        a. If the weight of the horse is lower than the weight recorded as lowest (or if there is no weight recorded as lowest)
+        replace the lowest weight value with the current value and name
+        b. If the weight of the horse is higher than the highest weight recorded (or if there is no weight recorded as highest)
+        replace the highest weight value with the current value and name
+    4. Go to the next stall
+    5. If the stall is not empty, go to step 2
+    6. Calculate the average weight of the horses by dividing the total weight of horses by the total number of horses
+    7. Report highest weight and name, lowest weight and name, total number of horses, and average weight of the horses
+
+Algorithm 3: Anagrams
+    1. Check if both strings have equal length
+        a. If true, return false
+    2. Convert both strings to lowercase
+    3. Remove all non-letter characters by iterating through the string and checking that the char values are within 97 - 122 (deicmal)
+    4. Sort each string in ascending order using bubble sort
+        a. Bubble sort:
+            i. Loop through the array. If a value is lower than the value at the next index, swap the two values.
+            ii. Continue looping through the array until a full loop results in no swaps (meaning the array is sorted)
+    5. Compare the two strings
+        a. If they are equal, return true (the strings are anagrams)
+        b. If they are not equal, return false (the strings are not anagrams)
+
+Algorithm 4: Calculating Pi
+    1. Initialize variables:
+        a. bool add initialized to false (to track if the value should be added or subtracted)
+        b. int denominator to track the fractional denominator, initialized to 3
+        c. double prev_iteration to track the previous iterations value, initialized to 1
+        d. double value to track current value, initialized to 1
+    2. Start a loop
+        a. If add is false
+            i. Set value equal to prev_iteration MINUS 1/denominator
+            ii. Set add to true
+        b. Else if add is true
+            i. Set value equal to prev_iteration PLUS 1/denominator
+            ii. Set add to false
+        c. If value * 4 is within 6 digits of precision to prev_iteration * 4, return value * 4 (this is the value of pi)
+        d. Else increase denominator by two, repeat the loop.
+
+Algorithm 5: Spending Money (extra credit)
+    1. Create a struct "Item" containing two variables, string name and int price
+    2. Initialize an array of Items containing all the items, sorted by their price in descending order
+    3. Initialize two vectors of Items named best_combo and current_combo
+    4. Initialize variables int current_price, best_price
+    5. 
+        
