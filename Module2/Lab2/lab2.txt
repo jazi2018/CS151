@@ -53,7 +53,7 @@ Algorithm 4: Calculating Pi
 Algorithm 5: Spending Money (extra credit)
     1. Create a struct "Item" containing two variables, string name and int price
     2. Initialize an array of Items containing all the items, sorted by their price in descending order
-    3. Initialize two vectors of Items named best_combo and current_combo
+    3. Initialize two vectors of Items named best_combo and current_combo, reserve 10 for both
     4. Initialize variables int current_price, best_price
     5. 
         
