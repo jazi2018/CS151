@@ -25,16 +25,16 @@ int main()
 {
     int decimal_number = 0;
     string test = "";
-    while (decimal_number != -1)
+    while (decimal_number != -1) //input output loop
     {
         cout << "Please input a base 10 number to convert to binary, or -1 to stop:" << endl;
         cin >> decimal_number;
-        if (decimal_number == -1)
+        if (decimal_number == -1) //if input is sentinel, exit loop
         {
             break;
         }
         
-        cout << decimal_number << " in binary is: " << convertNumber(decimal_number) << endl;
+        cout << decimal_number << " in binary is: " << convertNumber(decimal_number) << endl; //print statement calls number conversion function
     }
 
     cout << "Exiting." << endl;
@@ -44,18 +44,18 @@ int main()
 
 string convertNumber(int num)
 {
-    string binary_number = "";
+    string binary_number = ""; //initialize empty string for answer
 
-    if (num == 0)
+    if (num == 0) // 0 in binary is 0, can return immediately
     {
         return "0";
     }
     
-    while (num != 0)
+    while (num != 0) //at end of conversion, num should be reduced to 0
     {
-        binary_number = to_string(num % 2) + binary_number;
-        num /= 2;
+        binary_number = to_string(num % 2) + binary_number; //first calculate remainder, 0 or 1
+        num /= 2; //divide by 2 to get to next binary digit
     }
 
-    return binary_number;
+    return binary_number; //returns filled string
 }
