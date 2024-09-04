@@ -1,3 +1,29 @@
-10.2: double *dPtr = nullptr;
+10.2: 
+double *dPtr = nullptr;
 
-10.3: multiplication, defining a pointer, or dereferencing a pointer
+10.3: 
+multiplication, defining a pointer, or dereferencing a pointer
+
+10.4:
+35 40 45
+350 5 25
+
+10.5:
+for (int x = 0; x < 30; x++)
+{
+    cout << array[x] << endl;
+}
+
+10.6:
+4998
+
+10.7:
+    a. Valid
+    b. Valid
+    c. Invalid. The pointers must be of the same type to be subtracted from one another.
+    d. Invalid. The pointers must be of the same type to be added to one another.
+    e. Invalid. The number must be a constant number, not a variable.
+    f. Invalid. Pointers can only be added or subtracted by constant numbers of the same type, not multiplied.
+
+34:
+modify(i);
