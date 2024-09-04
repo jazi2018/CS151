@@ -55,7 +55,12 @@ Algorithm 5: Spending Money (extra credit)
     2. Initialize an array of Items containing all the items, sorted by their price in descending order
     3. Initialize two vectors of Items named best_combo and current_combo, reserve 10 for both
     4. Initialize variables int current_price, best_price
-    5. Use a for loop starting at the 0th index of the item array, going until the last index
-        a. Push back the Item at the current index to the current_combo array
-        b.
+    5. Loop through 0 -> the max number of items - 1 (9), passing each number to the next function as the start point
+    6. In a separate function within the previous loop : use a for loop starting at the 0th index of the item array, going until the last index, passing current_combo by reference
+        a. Push back the Item to the current_combo vector
+        b. Add item price to current_price
+        c. If current_price plus item price at next index is less than or equal to the max price (100), call the function again passing the next index as the start point
+        d. Otherwise, iterate to next index and check c again
+        e. When end of array is reached, compare current_price to best_price. If its better, replace best_price and best_combo
+    7. Once all combinations are tested, print out best_combo to see which items create the highest cost combination
         
