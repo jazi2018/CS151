@@ -1,0 +1,3 @@
+10.2: double *dPtr = nullptr;
+
+10.3: multiplication, defining a pointer, or dereferencing a pointer
