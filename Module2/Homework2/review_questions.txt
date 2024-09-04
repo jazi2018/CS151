@@ -1,3 +1,4 @@
+CHECKPOINTS:
 10.2: 
 double *dPtr = nullptr;
 
@@ -25,5 +26,6 @@ for (int x = 0; x < 30; x++)
     e. Invalid. The number must be a constant number, not a variable.
     f. Invalid. Pointers can only be added or subtracted by constant numbers of the same type, not multiplied.
 
+REVIEW QUESTION:
 34:
 modify(i);
