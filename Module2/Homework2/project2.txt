@@ -1,0 +1,79 @@
+1. Convert the following decimal numbers to binary, showing each step in the conversion:
+    a. 1
+    Answer: 1 (no conversion necessary)
+
+    b. 9
+    9 / 2 = 4 remainder of 1
+    4 / 2 = 2 remainder of 0
+    2 / 2 = 1 remainder of 0
+    1 / 2 = 0 remainder of 1
+    Report the values backwards.
+    Answer: 1001
+
+    c. 100
+    100 / 2 = 50 r 0
+    50 / 2 = 25 r 0
+    25 / 2 = 12 r 1
+    12 / 2 = 6 r 0
+    6 / 2 = 3 r 0
+    3 / 2 = 1 r 1
+    1 / 2 = 0 r 1
+    Answer: 1100100
+
+    d. 624
+    624 / 2 = 312 r 0
+    312 / 2 = 156 r 0
+    156 / 2 = 78 r 0
+    78 / 2 = 39 r 0
+    39 / 2 = 19 r 1
+    19 / 2 = 9 r 1
+    9 / 2 = 4 r 1
+    4 / 2 = 2 r 0
+    2 / 2 = 1 r 0
+    1 / 2 = 0 r 1
+    Answer: 1001110000
+
+2. Convert the following decimal numbers to hexadecimal, showing each step in the conversion:
+    a. 10
+    Answer: 0xA (10 in hexadecimal is a)
+
+    b. 40
+    40 / 16 = 2 remainder of 8
+    2 / 16 = 0 remainder of 2
+    Answer: 0x28
+
+    c. 624
+    624 / 16 = 39 r 0
+    39 / 16 = 2 r 7
+    2 / 16 = 0 r 2
+    Answer: 0x270
+
+    d. 999
+    999 / 16 = 62 r 7
+    62 / 16 = 3 r 14
+    3 / 16 = 0 r 3
+    Answer: 0x3E7
+
+3. Convert the following hexadecimal numbers to decimal, showing each showing in the conversion:
+    a. 5
+    Answer: 5 (5 in decimal is 5)
+
+    b. a
+    Answer: 10 (a in decimal is 10)
+
+    c. 100
+    (16^0 * 0) + (16^1 * 0) + (16^2 * 1) = 256
+    Answer: 256
+
+    d. bd92
+    b = 11
+    d = 13
+    (16^0 * 2) = 2
+    +
+    (16^1 * 9) = 144
+    +
+    (16^2 * 13 (d)) = 3328
+    +
+    (16^3 * 11 (b)) = 45056
+    Answer = 48,530
+    
