@@ -69,6 +69,8 @@ int main()
     }
     cout << "avg: " << avg_score << endl;
 
+    delete [] score_array;
+
     return 0;
 }
 
