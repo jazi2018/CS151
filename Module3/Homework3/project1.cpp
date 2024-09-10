@@ -24,27 +24,80 @@ Algorithm:
 
 using namespace std;
 
-void insertionSort(int arr[], int size);
+//score class to store in arrays
+class Score
+{
+    private:
+        float score;
+        string name;
+    public:
+        Score() //default constructor
+        {
+            score = 0;
+            name = "";
+        } 
+        Score(int sc, string nm) //parameterized constructor
+        {
+            score = sc;
+            name = nm;
+        }
+        ~Score() //destructor
+        {
+            /*
+            including code below will print this every time a temp is created
+            and destroyed in the sorting algorithm
+            */
+           //cout << "Score of " << name << " destructed" << endl;
+        }
+        float getScore()
+        {
+            return score;
+        }
+        string getName()
+        {
+            return name;
+        }
+        void setScore(float s)
+        {
+            score = s;
+        }
+        void setName(string n)
+        {
+            name = n;
+        }
+};
+
+void insertionSort(Score arr[], int size);
 
 int main()
 {
     //prompt for user input and store in size variable
-    int size = 0, total_score = 0;
+    int size = 0;
+    float total_score = 0;
+
     cout << "Please enter number of test scores." << endl;
     cin >> size;
 
     //allocate an array from the heap based on user input
-    int *score_array = new int[size];
+    Score *score_array = new Score[size];
 
     //loop through the indeces of the array
     for (int i = 0; i < size; i++)
     {
         //prompt user for score and name input
-        int input = 0;
-        cout << "Please enter score " << i + 1 << ":" << endl;
-        cin >> input;
+        string name_input = "";
+        int score_input = 0;
+        if ((score_array + i)->getName() == "") //if invalid int, skips this step when loop is repeated
+        {
+            cout << "Please enter name of student " << i + 1 << ":" << endl;
+            cin >> name_input;
+            (score_array + i)->setName(name_input);
+        }
+
+        cout << "Please enter " << (score_array + i)->getName() << "'s score:" << endl;
+        cin >> score_input;
         //validate user input
-        if (input < 0)
+        if (score_input < 0)
         {
             cout << "Test score cannot be negative." << endl;
             //restart current iteration
@@ -52,36 +105,39 @@ int main()
             continue;
         }
         //store input in score_array
-        *(score_array + i) = input;
-        total_score += input;
+        (score_array + i)->setScore(score_input);
+        total_score += score_input;
     }
 
     //sort array
     insertionSort(score_array, size);
 
     //calculate average score
-    float avg_score = (float)total_score / size;
+    float avg_score = total_score / size;
 
     //report array
+    cout << " Name       Score" << endl;
+    cout << "-------    -------" << endl;
     for(int i = 0; i < size; i++)
     {
-        cout << *(score_array + i) << endl;
+        cout << setw(10) << left << (score_array + i)->getName();
+        cout << right << setw(8) << setprecision(2) << fixed << (score_array + i)->getScore() << endl;
     }
-    cout << "avg: " << avg_score << endl;
+    cout << "Average score: " << avg_score << endl;
 
     delete [] score_array;
 
     return 0;
 }
 
-void insertionSort(int arr[], int size)
+void insertionSort(Score arr[], int size)
 {
     for (int i = 1; i < size; i++)
     {
         int j = i;
-        while (j > 0 && *(arr + j) < *(arr + j - 1))
+        while (j > 0 && (arr + j)->getScore() < (arr + j - 1)->getScore())
         {
-            int temp = *(arr + j);
+            Score temp = *(arr + j);
             *(arr + j) = *(arr + j - 1);
             *(arr + j - 1) = temp;
             j--;
