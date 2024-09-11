@@ -61,11 +61,20 @@ int main()
     //sort array
     insertionSort(pie_array, arr_size);
 
-    //find mode
+    //find mode and print array
     int mode = findMode(pie_array, arr_size);
+    for (int i = 0; i < arr_size; i++)
+    {
+        cout << pie_array[i] << " ";
+    }
+    cout << endl;
     if (mode == -1)
     {
-        //print that all values appear once
+        cout << "All values appear once. There is no mode" << endl;
+    }
+    else
+    {
+        printf("The mode is %d.", mode);
     }
 
     return 0;
@@ -76,7 +85,7 @@ void insertionSort(int arr[], int size)
     for (int i = 0; i < size; i++)
     {
         int j = i;
-        while (j > 0 && arr[j] > arr[j-1])
+        while (j > 0 && arr[j] < arr[j-1])
         {
             //swap values
             int temp = arr[j-1];
