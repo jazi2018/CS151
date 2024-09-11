@@ -2,6 +2,7 @@
     memory allocation with arrays
 Author: Jared Ziv
 Module 3, Homework 3
+Project 1
 
 Problem Statement: Dynamically allocate an array of user defined size, storing
     name and score of students. Sort array in ascending order, calculate and 
