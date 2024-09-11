@@ -63,6 +63,10 @@ int main()
 
     //find mode
     int mode = findMode(pie_array, arr_size);
+    if (mode == -1)
+    {
+        //print that all values appear once
+    }
 
     return 0;
 }
