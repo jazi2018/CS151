@@ -45,7 +45,7 @@ int main()
     for (int i = 0; i < arr_size; i++)
     {
         int input = 0;
-        cout << "Please enter the number of pies you eat in a year:" << endl;
+        cout << "Please enter the number of pie slices you eat in a year:" << endl;
         cin >> input;
         //input validation
         if (input < 0)
