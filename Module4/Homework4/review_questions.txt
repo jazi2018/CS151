@@ -1,0 +1,15 @@
+1. What is the difference between a pointer to a constant and a constant pointer?
+        A pointer to a constant stores the memory address of a constant variable. The variable cannot change.
+        A constant pointer stores a memory address that does not change. The variable at the address CAN change.
+
+2. Show C++ code for defining a variable  ptr  that is a constant pointer to  int.
+        *int const ptr;
+
+3. Name the header file that needs to be included in a program that uses smart pointers.
+        memory (#include <memory>)
+
+4. What does the  get()  function of the  unique_ptr  class do?
+        get() returns a raw pointer to the memory address that the unqiue pointer points to.
+
+5. Besides pointer arithmetic (operators ++, – –, +, –, *, /, etc.) describe two types of operations that are permitted on raw pointers but not on  unique_ptr  objects.
+        You cannot use bracket notation and you cannot pass it in functions
