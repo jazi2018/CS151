@@ -1,5 +1,27 @@
 /*
+homework4.cpp - Utilize an array of unique pointers
+Author:     Jared Ziv
+Module:     4
+Project:    1
+Problem Statement: Using an array of unique pointers, sort a Stone struct
+        into "slots" of a gem box, recording number of attempts to be
+        sorted correctly. Report results based on slot and letter.
 
+Algorithm:
+    1. Seed random number generator using system time.
+    2. Create array of 10 unique pointers.
+    3. Iterate through the array using a character as the iterator (a-j).
+        a. Initialize an attempt counter to 1
+        b. Using a while loop, continuously generate a random number.
+           If the index at the random number is not occupied, create
+           a stone struct with the current letter iterator and the
+           attempt counter and break. Otherwise, increase the attempt
+           counter and repeat.
+    4. Report results by iterating through the slots and printing using
+       printf(). Include a running total for attempts.
+    5. To sort by letter, iterate through all the letters and find the index
+       that has that letter, then use a similar printf(). Include a running
+       total for attemps.
 */
 #include <iostream>
 #include <iomanip>
