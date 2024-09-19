@@ -8,7 +8,7 @@ Problem Statement: Demonstrate different features of the <ctime> library, utiliz
         dates more readable. Also stores different events in the tm structure.
 
 Algorithm:
-    1. 
+    Followed instructions listed on lab page.
 */
 #include <iostream>
 #include <ctime>
@@ -94,5 +94,10 @@ int main()
     cout << "The week before was " << ctime(&week_prior) << endl;
 
     //output day of week and day number using strftime
+    /*
+    Did not know how to sure strftime AND the days array, so just used the built
+    in function for day on strftime
+    */
+    strftime(buffer, 80, "My birth was on a %A, on day %j of the year.", local);
     return 0;
 }
