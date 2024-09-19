@@ -99,5 +99,6 @@ int main()
     in function for day on strftime
     */
     strftime(buffer, 80, "My birth was on a %A, on day %j of the year.", local);
+    cout << buffer << endl;
     return 0;
 }
