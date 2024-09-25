@@ -110,5 +110,15 @@ int main()
     }
     cout << "Total visits: " << Member::total_visits << endl;
     cout << "Active members: " << Member::active_members << endl;
+
+    //clean up the heap
+    while (member_structs.size() > 0)
+    {
+        //delete last object in pointer
+        delete member_structs.back();
+
+        //remove (now dangling) pointer
+        member_structs.pop_back();
+    }
     return 0;
 }
