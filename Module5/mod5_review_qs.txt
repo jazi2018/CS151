@@ -1,0 +1,19 @@
+1. Suppose that class Y is a friend of class X, meaning that the member functions of class Y have access to all members of class X.
+   Should the  friend  keyword appear in class Y's declaration or in class X's declaration?
+        - The friend keyword should appear in class X's declaration.
+
+4. Static member variables are initialized to values  ______  the class. 
+        - Outside
+
+5. A static member variable may be called  ______  any instances of the class are defined.
+        - Before
+
+6. A(n)  __________  tells the compiler that a class or structure with a specified name will be defined later in the program.
+        - Forward declaration
+
+18.     a. 3
+        b. 3
+        c. 1
+        d. x and y will both be equal to 0 in all objects
+        e. Thing.putThing(a);
+
