@@ -56,16 +56,17 @@ void Numbers::print() const
     temp = num_copy / 10;
     if(temp >= 2)
     {
-        num_english += tens[temp] + " ";
+        num_english += tens[temp - 1] + " ";
     }
     else if (temp > 0)
     {
-        num_english += less_than_20[temp * 10];
+        num_english += less_than_20[num_copy];
         complete = true;
     }
     temp *= 10;
     num_copy -= temp;
-    if (!complete)
+    //if num_copy is zero, you dont add zero to the end of the number
+    if (!complete && num_copy != 0)
     {
         num_english += less_than_20[num_copy];
     }
