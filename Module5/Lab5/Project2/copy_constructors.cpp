@@ -3,7 +3,8 @@ copy_constructors.cpp - Creates a class that mimics c++ strings and demonstrates
 Author:     Jared Ziv
 Module:     5
 Project:    2 (Lab)
-Problem Statement: 
+Problem Statement: Create a string class that imitates C strings. Include copy functionality and demonstrate
+        how improper copying with a pointer member can cause runtime errors. Then create a copy constructor.
 
 Algorithm:
     Followed instructions listed on lab page.
