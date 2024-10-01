@@ -94,7 +94,7 @@ EString operator+(const EString &str1, const EString &str2)
     strcat(temp_string, str2.string);
 
     //create new EString object to return, delete temporary allocated memory
-    EString str3 = temp_string;
+    EString str3(temp_string);
     delete [] temp_string;
     return str3;
 }
