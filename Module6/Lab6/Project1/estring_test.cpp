@@ -1,7 +1,7 @@
 /* estring_test.cpp - Tests newly added EString functionality using operator overloading
  * Author: Jared Ziv
  * Module: 6
- * Project: 2 (lab)
+ * Project: 1 (lab)
  * Description:
  *      Uses the previously defined EString class to create a few strings. Then, utilizes
  *      various overloaded operators to perform different functions (= for assignment,
