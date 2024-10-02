@@ -1,3 +1,13 @@
+/* lab6_proj2.cpp - demonstrates more operator overloading of + << = and >=
+ * Author: Jared Ziv
+ * Module: 6
+ * Project: 2 (lab)
+ * Description:
+ *      Uses the money class and overloaded operators to compare and combine
+ *      several money objects.
+ *  Algorithm:
+ *      Followed lab instructions.
+ */
 #include "Money.cpp"
 
 using namespace std;
