@@ -1,5 +1,5 @@
 /* estring_test.cpp - Tests newly added EString functionality using operator overloading
- * Author: Chris Merrill
+ * Author: Jared Ziv
  * Module: 6
  * Project: 2 (lab)
  * Description:
