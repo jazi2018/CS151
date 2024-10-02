@@ -1,0 +1,9 @@
+24. Assume a class named  Bird  exists.  Write the header for a member function that overloads the  =  operator for that class.
+        - Bird & operator=(const Bird &original);
+
+26. Assume a class named  Yen  exists.  Write the header for a member function that overloads the  <  operator for that class.
+        - bool operator<(const Yen &right) const;
+
+28. Assume a class named  Team  exists which contains a sequence of  Player  objects.  Write the header for a member function that 
+    overloads the square brackets  [  ]  operator for that class which returns a single  Player  as a specified position in the sequence.
+        - Player & operator[](int index);
