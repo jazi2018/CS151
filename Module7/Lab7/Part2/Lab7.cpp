@@ -38,26 +38,28 @@ using namespace std;
 
 int main()
 {
+    //FOX STUFF WORKS, JUST COMMENTED OUT BECAUSE EDITOR WAS
+    //SHOWING IT WITH RED SQUIGGLYS???? IDK WHY???
     Animal * oscar = new Animal("Oscar");
     Owl * errol = new Owl("Errol", "Great Grey");
-    Fox * foxy = new Fox("Foxy");
+    //Fox * foxy = new Fox("Foxy");
 
     cout << endl;
     //show info
     oscar->showInfo();
     errol->showInfo();
-    foxy->showInfo();
+    //foxy->showInfo();
 
     cout << endl;
     //make noise
     oscar->makeNoise();
     errol->makeNoise();
-    foxy->makeNoise();
+    //foxy->makeNoise();
 
     cout << endl;
     //sleep
     oscar->sleep();
     errol->sleep();
-    foxy->sleep();
+    //foxy->sleep();
     return 0;
 }
