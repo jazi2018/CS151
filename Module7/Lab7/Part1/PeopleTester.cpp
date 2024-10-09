@@ -1,5 +1,5 @@
 /* PeopleTester.cpp - Create objects of subclasses to PersonAtMCC class
- * Author:     <your name>
+ * Author:     Jared Ziv
  * Module:     7
  * Project:    Lab, Part 1
  * Problem statement:  Create a parent class PersonAtMCC with subclass for

@@ -1,5 +1,5 @@
 /* Student.h - Describes students at MiraCosta (child of PersonAtMCC)
- * Author:     <your name>
+ * Author:     Jared Ziv
  * Module:     7
  * Project:    Lab, Part 1
  * Description:
