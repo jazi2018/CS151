@@ -71,7 +71,7 @@ class Instructor : public PersonAtMCC
             
             //instructor class output
             cout << "    Department: " << getDepartment()
-                 << "  Permanent?: " << getIsPermanent()
+                 << "  Permanent?: " << (getIsPermanent() ? "Yes" : "No")
                  << "  Pay-Rate: " << getPayRate()
                  << "  Hours: " << getHours() << endl << endl;
         }

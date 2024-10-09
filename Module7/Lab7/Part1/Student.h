@@ -43,11 +43,21 @@ class Student : public PersonAtMCC
               this (the child) class. ****/
 
         Student(long id, string name, string address, string phone, 
-                string major, int credits_recieved, bool applied_to_4_year,
+                string major, int credits, bool applied_to_4_year,
                 bool is_veteran) //parameterized constructor
         {
             setId(id); setName(name); setAddress(address); setPhone(phone);
-            this->major = major; this->credits_received = credits_received;
+            this->major = major; this->credits_received = credits;
+            /*
+            With JUST credits_recieved, it gave an incorrect value if i used
+            ' this->credits_received = credits_recieved '
+            but gave a correct value for
+            ' this->credits_recieved = credits ' (as long as parameter has a diff name)
+            I have NO idea why it did this. The incorrect value was JUST for credits_recieved,
+            and was ALWAYS -1163005939. It was always just that value, regardless of if I
+            changed the order of parameters. In my github repo, I will include a screenshot of the
+            incorrect output. If you know why it did that, please let me know!
+            */
             this->applied_to_4_year = applied_to_4_year;
             this->is_veteran = is_veteran;
         }
@@ -77,8 +87,8 @@ class Student : public PersonAtMCC
             //student class output
             cout << "    Major: " << getMajor()
                  << "  Credits: " << this->credits_received
-                 << "  4-year? " << getAppliedTo4Year()
-                 << "  Veteran? " << getIsVeteran() << endl << endl;
+                 << "  4-year? " << (getAppliedTo4Year() ? "Yes" : "No")
+                 << "  Veteran? " << (getIsVeteran() ? "Yes" : "No") << endl << endl;
 
         }
 } ;
