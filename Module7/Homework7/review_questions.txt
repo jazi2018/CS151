@@ -1,0 +1,34 @@
+31. A derived class inherits the  ____________   of its base class.     ( list all inherited elements )
+        - Data members and methods
+
+34. In the following line of code, the class's access specification to the base class is  (or is equivalent to)  ______ .
+    [class Pet : public Dog]
+        - public 
+
+35. In the following line of code, the class's access specification to the base class is (or is equivalent to)  ______ .
+    [class Pet : Fish]
+        - private
+
+36. Protected members of the base class are like  _______   members, except they may be accessed by derived class members.
+        - private
+
+37. In a private base class, the access specification for base class members by the derived class becomes  _____ / _____ / _____
+    (choose public, protected, private, or inaccessible for each response) when a base class member is public / protected / private.
+        - private / private / inaccessible
+
+38. In a protected base class, the access specification for base class members by the derived class becomes  _____ / _____ / _____
+    when a base class member is public / protected / private.
+        - protected / protected / inaccessible
+
+39. In a public base class, the access specification for base class members by the derived class becomes  _____ / _____ / _____
+    when a base class member is public / protected / private.
+        - public / protected / private
+
+40. When both a base class and a derived class have constructors, the  _______  is run first.
+        - base class constructor
+
+41. When both a base class and a derived class have destructors, the  _______  is run first.
+        - derived class destructor
+
+42. An overridden base class function may be called by a function in the derived class by using the  _______   operator.
+        - scope resolution operator (::)
