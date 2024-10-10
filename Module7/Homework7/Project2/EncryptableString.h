@@ -46,7 +46,7 @@ class EncryptableString : public string
                 else if (this->at(i) == 57)
                 {
                     //wraps around to '0'
-                    this->at(i) = 0;
+                    this->at(i) = 48;
                 }
             }
         }
