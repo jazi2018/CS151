@@ -20,9 +20,8 @@ class PString : public string
             //ends of string
             while (fwd_it != this->end() && bck_it != this->rend())
             {
-                //checks if the fwd iterator is equal to punctuation or a space
-                while (*fwd_it == ' ' || *fwd_it == ',' || *fwd_it == '.' ||
-                       *fwd_it == '-' || *fwd_it == '!' || *fwd_it == '?')
+                //checks if the fwd iterator is equal to punctuation or a space (ASCII)
+                while (*fwd_it >= 32 && *fwd_it <= 47)
                 {
                     //iterates forward until it isnt
                     fwd_it++;
@@ -33,9 +32,8 @@ class PString : public string
                         return true;
                     }
                 }
-                //checks if the bck iterator is equal to punctuation or a space
-                while (*bck_it == ' ' || *bck_it == ',' || *bck_it == '.' ||
-                       *bck_it == '-' || *bck_it == '!' || *bck_it == '?')
+                //checks if the bck iterator is equal to punctuation or a space (ASCII)
+                while (*bck_it >= 32 && *bck_it <= 47)
                 {
                     //iterates 'forward' (reverse) until it isnt
                     bck_it++;
