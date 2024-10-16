@@ -1,0 +1,27 @@
+1. A(n)  ______  is represented in memory as an array of characters with a null terminator.
+        - C-string
+
+2. The  ______  header is required before the library of C-string functions can be used in a program.
+        - <cstring>
+
+3. A(n)  ______  is written in your program as a sequence of characters surrounded by double quotes.
+        - string
+
+4. The type  ______  is used by the compiler as the type of a string literal.
+        - const char* (const char pointer)
+
+15. The  ______  function returns the value of a string converted to an integer.
+        - stoi()
+
+18. The  ______  function converts an integer to a string.
+        - to_string()
+
+19. Write a function whose prototype is: char lastChar(const char *str) and which takes a non-empty
+    C-string as a parameter and returns the last character in the string. For example, the expression
+    lastChar("abc") would return the character 'c'. Do not use a string or any functions in the string class.
+        - char lastChar(const char *str)
+          {
+            int len = strlen(str);
+            //return dereferenced pointer (char) to last character
+            return *(str + (len - 1));
+          }
