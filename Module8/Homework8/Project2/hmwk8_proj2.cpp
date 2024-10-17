@@ -1,11 +1,27 @@
- /* hmwkN_projN.cpp - <simple description>
+ /* hmwkN_projN.cpp - program that checks validity of passwords
  * Author:     Jared Ziv
- * Module:     n
- * Project:    Homework, Part n
- * Problem statement:  <problem statement>
+ * Module:     8
+ * Project:    Homework, Part 2
+ * Problem statement:  Write a program that asks for a password and then calls
+ *      a function which verifies that it meets the stated criteria. Stated
+ *      criteria is listed on homework assignment page.
  *
  * Algorithm:
- *   1.  <detailed algorithm>
+ *   1. Initialize booleans for tracking if string has uppercase, lowercase,
+ *      digits, no spaces and is valid.
+ *   2. Check length of string. If less than 6, print that the string must be
+ *      longer and set valid_string to false.
+ *   3. Iterate through the string. At each character, check if it is upper,
+ *      lower, number, or space. If any are true, set their respective variable
+ *      accordingly.
+ *   4. After iteration is done, check each variable against what they are
+ *      supposed to be. If they are not what they are supposed to be, print an
+ *      error message and set valid_string to false. (i.e. has_upper is false,
+ *      print that you need at least one uppercase character and set valid_string
+ *      to false)
+ *   5. In main, loop while the string is invalid, continuously prompting user
+ *      for input until a valid string is passed (thus resulting in checkPass()
+ *      returning true.)
  */
 #include <iostream>
 #include <string>
@@ -25,7 +41,7 @@ int main()
      * it was rejected, a list of reasons why. I interpreted that as an
      * ordered sequence, where it would print "Password rejected" and
      * THEN the list. I could think of a few ways to implement it (like
-     * maybe using a class?) but the specifications were pretty clear about
+     * using a class?) but the specifications were pretty clear about
      * passing strings and returning true or false so I went the path of
      * least resistance :) If there's any issues with my implementation
      * just let me know and I will fix it.
@@ -36,7 +52,7 @@ int main()
     {
         cout << "Enter a password:" << endl;
         string password;
-        cin >> password; //cin is space delimited so there shouldnt be spaces anyways
+        getline(cin, password);
 
         valid_pass = checkPass(password);
 
