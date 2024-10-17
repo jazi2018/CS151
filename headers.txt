@@ -1,0 +1,21 @@
+-- lab header --
+/* labN_projN.cpp - <simple description>
+ * Author:     Jared Ziv
+ * Module:     n
+ * Project:    Lab, Part n
+ * Problem statement:  <problem statement>
+ *
+ * Algorithm:
+ *   1.  Followed lab instructions
+ */
+
+ -- homework header -- 
+ /* hmwkN_projN.cpp - <simple description>
+ * Author:     Jared Ziv
+ * Module:     n
+ * Project:    Homework, Part n
+ * Problem statement:  <problem statement>
+ *
+ * Algorithm:
+ *   1.  <detailed algorithm>
+ */
