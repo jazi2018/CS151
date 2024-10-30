@@ -18,7 +18,12 @@
  *      4. Using a while loop with a condition of file_in.get(current_char) (every iteration will get
  *         the next character to manipulate)
  *          a. If new_sentence is true and current char is not a space, output current char to file_out
- *          b. Otherwise if 
+ *          b. Otherwise if current char is i and previous char isspace and file_in.peek() isspace, output
+ *             the current char to file_in (this should be a capital I)
+ *          c. Otherwise, the character is lowercase and output (char) tolower(current_char) to file_out
+ *          d. If prev char was a period and current char is a space, set new_sentence to true
+ *          e. Set prev_char = current_char
+ *      5. After exiting while loop, print a success message and close the files.
  */
 
 #include <iostream>
