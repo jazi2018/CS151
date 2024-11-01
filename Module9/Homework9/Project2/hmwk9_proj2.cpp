@@ -1,17 +1,44 @@
-/* hmwk9_proj2.cpp - <simple description>
+/* hmwk9_proj2.cpp - program that can read and write structs to a .dat file
  * Author:     Jared Ziv
  * Module:     9
- * Project:    Homework, Part 1
- * Problem statement:  <problem statement>
+ * Project:    Homework, Part 2
+ * Problem statement:  Write a program that uses a structure to store inventory information
+ *      in a binary file. If the inventory file doesn't exist, please create one when first
+ *      running your program.
  *
  * Algorithm:
- *   1.  <detailed algorithm>
+ *   1. Create new fstream object and open to filename. If it fails, report and exit the program
+ *      with code 1. Otherwise, close the file.
+ *   2. Display a menu with choices to add, view and edit files, or exit the program.
+ *   3. Get user input for the menu. Compare cases using a switch statement.
+ * 
+ *      Adding files:
+ *          (Before entering the function, open file to filename with binary, out, and app flags)
+ *          1. Create placeholder Inventory object
+ *          2. Create a string called buffer
+ *          3. Prompt input for each data member of the structure. Read into buffer using
+ *             getline and parse using stringstream. If input is invalid based on homework
+ *             specifications, print an appropriate error message and return from the function
+ *          4. If all input is valid, write to the open file using reinterpret_cast <char *> and
+ *             a reference to the Inventory object.
+ *          (After exiting the function, close file)
+ *      
+ *      Reading files:
+ *          (Before entering the function, open file to filename with binary and in flags.
+ *           Pass desired index to the function.)
+ *          1. Create a placeholder Inventory object
+ *          2. Seekg to idx * sizeof(Inventory) from ios::beg
+ *          3. Read to the placeholder Inventory object
+ *          4. If file has any failure flag, print that the index is invalid and return
+ *          5. Otherwise, print each member.
+ *          TODO: Finish writing algorithm
+ *          
  */
 #include <iostream>
-#include <fstream>
-#include <iomanip>
-#include <sstream>
-#include <cstring>
+#include <fstream>      //for file access
+#include <iomanip>      //for output formatting
+#include <sstream>      //for input validation
+#include <cstring>      //for string size validation
 
 using namespace std;
 
@@ -23,10 +50,11 @@ struct Inventory
     double cost, price;
 };
 
-//modularize for clarity
-bool isValid(const Inventory inv);
+//reads a specific entry based on index
 void readInventory(fstream &file, const int idx);
+//accesses a specific entry and allows modifications to be made
 void editInventory(fstream &file, const int idx);
+//creates a new entry
 void addInventory(fstream &file);
 
 int main()
@@ -56,15 +84,19 @@ int main()
         int entry_idx;
         switch (sel)
         {
+            //add new record
             case 1:
+                //open file in binary for output
                 file.open(filename, ios::binary | ios::out | ios::app);
                 addInventory(file);
                 file.close();
                 break;
+            //display record
             case 2:
                 cout << "Enter desired index: " << endl;
                 getline(cin, input);
                 stringstream(input) >> entry_idx;
+                //input validation
                 if (entry_idx < 0)
                 {
                     cout << "Invalid index. Must be a positive integer." << endl;
@@ -75,17 +107,19 @@ int main()
                 readInventory(file, entry_idx);
                 file.close();
                 break;
+            //change record
             case 3:
-                //change record
                 cout << "Enter desired index: " << endl;
                 getline(cin, input);
                 stringstream(input) >> entry_idx;
+                //input validation
                 if (entry_idx < 0)
                 {
                     cout << "Invalid index. Must be a positive integer." << endl;
                     break;
                 }
 
+                //open file for reading and writing
                 file.open(filename, ios::binary | ios::in | ios::out);
                 editInventory(file, entry_idx);
                 file.close();
@@ -93,6 +127,7 @@ int main()
             case 4:
                 cout << "Exiting." << endl;
                 break;
+
             default:
                 cout << "Invalid selection." << endl;
                 break;
@@ -102,19 +137,15 @@ int main()
     return 0;
 }
 
-bool isValid(const Inventory inv)
-{
-    //checks validity of numbers. cstring handling is carried out during input
-    return inv.cost >= 0 && inv.price >= 0 && inv.quantity >= 0;
-}
-
 void addInventory(fstream &file)
 {
+    //define new inventory for storing
     Inventory inv;
     
     cout << "Enter item description: " << endl;
     string buffer;
     getline(cin, buffer);
+    //validate string size
     if (strlen(buffer.c_str()) < inv.DESC_SIZE)
     {
         strcpy(inv.desc, buffer.c_str());
@@ -128,6 +159,7 @@ void addInventory(fstream &file)
     cout << "Enter quantity:" << endl;
     getline(cin, buffer);
     stringstream(buffer) >> inv.quantity;
+    //validate quantity
     if (inv.quantity < 0)
     {
         cout << "Quantity must be positive." << endl;
@@ -137,6 +169,7 @@ void addInventory(fstream &file)
     cout << "Enter cost:" << endl;
     getline(cin, buffer);
     stringstream(buffer) >> inv.cost;
+    //validate cost
     if (inv.cost < 0)
     {
         cout << "Cost must be positive." << endl;
@@ -146,6 +179,7 @@ void addInventory(fstream &file)
     cout << "Enter price:" << endl;
     getline(cin, buffer);
     stringstream(buffer) >> inv.price;
+    //validate price
     if (inv.price < 0)
     {
         cout << "Price must be positive." << endl;
@@ -154,6 +188,7 @@ void addInventory(fstream &file)
 
     cout << "Enter date:" << endl;
     getline(cin, buffer);
+    //validate string size
     if (strlen(buffer.c_str()) < inv.DATE_SIZE)
     {
         strcpy(inv.date, buffer.c_str());
@@ -164,15 +199,9 @@ void addInventory(fstream &file)
         return;
     }
 
-    if (isValid(inv))
-    {
-        file.write(reinterpret_cast<char *> (&inv), sizeof(Inventory));
-        cout << "Success." << endl;
-    }
-    else
-    {
-        cout << "Invalid input. Entry not written." << endl;
-    }
+    //if all conditions are valid, write inv to binary file and report success
+    file.write(reinterpret_cast<char *> (&inv), sizeof(Inventory));
+    cout << "Success." << endl;
 }
 
 void editInventory(fstream &file, const int idx)
@@ -189,77 +218,116 @@ void editInventory(fstream &file, const int idx)
         return;
     }
 
-    //copy pasted from addInventory()
-    cout << "Enter item description: " << endl;
+    //print menu with values
+    cout << "Select a value to edit:" << endl;
+    cout << setw(19) << left << "1. Item description" << ": " << inv.desc << endl;
+    cout << setw(19) << left << "2. Item quantity" << ": " << inv.quantity << endl;
+    cout << setw(19) << left << "3. Item cost" << ": " << inv.cost << endl;
+    cout << setw(19) << left << "4. Item price" << ": " << inv.price << endl;
+    cout << setw(19) << left << "5. Date added" << ": " << inv.date << endl;
+
+    //validate selection input
+    int sel;
     string buffer;
     getline(cin, buffer);
-    if (strlen(buffer.c_str()) < inv.DESC_SIZE)
+    stringstream(buffer) >> sel;
+
+    //boolean varaible for correct output upon function completion
+    bool failed = false;
+    //perform relevant operation, taken from addInventory()
+    switch (sel)
     {
-        strcpy(inv.desc, buffer.c_str());
+        case 1:
+            cout << "Enter item description: " << endl;
+            getline(cin, buffer);
+            if (strlen(buffer.c_str()) < inv.DESC_SIZE)
+            {
+                strcpy(inv.desc, buffer.c_str());
+            }
+            else
+            {
+                cout << "String too large. Max " << inv.DESC_SIZE - 1 << " characters." << endl;
+                failed = true;
+            }
+            break;
+
+        case 2:
+            cout << "Enter quantity:" << endl;
+            getline(cin, buffer);
+            stringstream(buffer) >> inv.quantity;
+            if (inv.quantity < 0)
+            {
+                cout << "Quantity must be positive." << endl;
+                failed = true;
+            }
+            break;
+
+        case 3:
+            cout << "Enter cost:" << endl;
+            getline(cin, buffer);
+            stringstream(buffer) >> inv.cost;
+            if (inv.cost < 0)
+            {
+                cout << "Cost must be positive." << endl;
+                failed = true;
+            }
+            break;
+        
+        case 4:
+            cout << "Enter price:" << endl;
+            getline(cin, buffer);
+            stringstream(buffer) >> inv.price;
+            if (inv.price < 0)
+            {
+                cout << "Price must be positive." << endl;
+                failed = true;
+            }
+            break;
+        
+        case 5:
+            cout << "Enter date:" << endl;
+            getline(cin, buffer);
+            if (strlen(buffer.c_str()) < inv.DATE_SIZE)
+            {
+                strcpy(inv.date, buffer.c_str());
+            }
+            else
+            {
+                cout << "String too large. Max " << inv.DATE_SIZE - 1 << " characters." << endl;
+                failed = true;
+            }
+            break;
+        
+        default:
+            cout << "Invalid selection." << endl;
+            return;
     }
-    else
+
+    //if operation failed, exit function before updating entry
+    if (failed)
     {
-        cout << "String too large. Max " << inv.DESC_SIZE - 1 << " characters." << endl;
+        cout << "Edit failed." << endl;
         return;
     }
 
-    cout << "Enter quantity:" << endl;
-    getline(cin, buffer);
-    stringstream(buffer) >> inv.quantity;
-    if (inv.quantity < 0)
-    {
-        cout << "Quantity must be positive." << endl;
-        return;
-    }
-
-    cout << "Enter cost:" << endl;
-    getline(cin, buffer);
-    stringstream(buffer) >> inv.cost;
-    if (inv.cost < 0)
-    {
-        cout << "Cost must be positive." << endl;
-        return;
-    }
-
-    cout << "Enter price:" << endl;
-    getline(cin, buffer);
-    stringstream(buffer) >> inv.price;
-    if (inv.price < 0)
-    {
-        cout << "Price must be positive." << endl;
-        return;
-    }
-
-    cout << "Enter date:" << endl;
-    getline(cin, buffer);
-    if (strlen(buffer.c_str()) < inv.DATE_SIZE)
-    {
-        strcpy(inv.date, buffer.c_str());
-    }
-    else
-    {
-        cout << "String too large. Max " << inv.DATE_SIZE - 1 << " characters." << endl;
-        return;
-    }
-
-    if (isValid(inv))
-    {
-        //move back to original file position
-        file.seekg(idx * sizeof(Inventory), ios::beg);
-        file.write(reinterpret_cast<char *> (&inv), sizeof(Inventory));
-    }
+    //move back to original file position, write eidited inv to file
+    file.seekg(idx * sizeof(Inventory), ios::beg);
+    file.write(reinterpret_cast<char *> (&inv), sizeof(Inventory));
 }
 
 void readInventory(fstream &file, const int idx)
 {
     Inventory inv;
+    //seek to provided index and read to inv
     file.seekg(idx * sizeof(Inventory), ios::beg);
     file.read(reinterpret_cast<char *> (&inv), sizeof(Inventory));
     
+    //if could not read, no valid entry at index
     if (file.fail())
     {
         cout << "No entry found at index " << idx << '.' << endl;
     }
+    //otherwise report values of entry
     else
     {
         cout << setw(17) << left << "Item description" << ": " << inv.desc << endl;
