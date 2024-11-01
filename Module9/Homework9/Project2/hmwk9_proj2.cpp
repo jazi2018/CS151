@@ -9,8 +9,9 @@
  */
 #include <iostream>
 #include <fstream>
-#include <cstring>
+#include <iomanip>
 #include <sstream>
+#include <cstring>
 
 using namespace std;
 
@@ -20,172 +21,251 @@ struct Inventory
     char desc[DESC_SIZE], date[DATE_SIZE];
     int quantity;
     double cost, price;
-    //default constructor
-    Inventory() : desc(""), date(""), quantity(0), cost(0.0), price(0.0) { }
-    //parameterized constructor
-    Inventory(string desc, string date, int quant, double cost, double price) :
-        quantity(quant),
-        cost(cost), price(price)
-        { 
-            strcpy(this->desc, desc.c_str());
-            strcpy(this->date, date.c_str());
-        }
 };
 
 //modularize for clarity
-void readInventory(fstream &file, int idx);
-Inventory createInventory();
+bool isValid(const Inventory inv);
+void readInventory(fstream &file, const int idx);
+void editInventory(fstream &file, const int idx);
+void addInventory(fstream &file);
 
 int main()
 {
-    const string filename = "inventory.bin";
-    int total_entries = 1;
-    //create / open binary file
-    fstream file(filename, ios::binary | ios::in | ios::out);
-    //ensures file exists and is created
+    const string filename = "inventory.dat";
+    //create file if doesn't exist already
+    fstream file(filename, ios::in | ios::out | ios::binary | ios::app);
     if (!file)
     {
-        cout << filename << " not found and could not be created. Exiting." << endl;
+        cout << "File could not be created or opened. Exiting." << endl;
         exit(1);
     }
-    else
-    {
-        // file.clear();
-        // file.seekg(0, ios::beg);
-        // //counts total number of entries existing when file was opened
-        // while(file)
-        // {
-        //     file.seekg(sizeof(Inventory), ios::cur);
-        //     total_entries++;
-        // }
-        // file.close();
-    }
-    //run menu
-    cout << "Select one of the following" << endl;
-    while (true)
-    {
-        string sel;
-        //selection loop
-        while(true)
-        {
-            cout << "1. Add new records" << endl
-             << "2. Display record" << endl
-             << "3. Quit program" << endl;
-            getline(cin, sel);
-            if (sel[0] == '1' || sel[0] == '2' || sel[0] == '3') { break; }
-            else { cout << "Invalid input. Please enter 1, 2 or 3." << endl; }
-        }
+    else { file.close(); }
 
-        if (sel[0] == '1')
+    int sel = 0;
+    while (sel != 4)
+    {
+        cout << "Select one of the following:" << endl;
+        cout << "1. Add new record" << endl;
+        cout << "2. Display record" << endl;
+        cout << "3. Change record" << endl;
+        cout << "4. Exit" << endl;
+        string input;
+        getline(cin, input);
+        stringstream(input) >> sel;
+
+        int entry_idx;
+        switch (sel)
         {
-            //add new record
-            Inventory inv = createInventory();
-            file.open(filename, ios::binary | ios::out | ios::app);
-            file.write(reinterpret_cast<char *> (&inv), sizeof(Inventory));
-            file.close();
-        }
-        else if (sel[0] == '2')
-        {
-            if (total_entries == 0)
-            {
-                cout << "No valid entries!" << endl;
-            }
-            else
-            {
-                //read record
-                while (true)
+            case 1:
+                file.open(filename, ios::binary | ios::out | ios::app);
+                addInventory(file);
+                file.close();
+                break;
+            case 2:
+                cout << "Enter desired index: " << endl;
+                getline(cin, input);
+                stringstream(input) >> entry_idx;
+                if (entry_idx < 0)
                 {
-                    string idx;
-                    cout << "Enter desired index out of " << total_entries << ":" << endl;
-                    getline(cin, idx);
-                    istringstream str(idx);
-                    int i;
-                    if (str >> i && i > -1) { readInventory(file, i); break;}
-                    else { cout << "Please enter a valid index." << endl;}
+                    cout << "Invalid index. Must be a positive integer." << endl;
+                    break;
                 }
-            } 
-        }
-        else
-        {
-            //exit program
-            break;
+                //open file for reading
+                file.open(filename, ios::binary | ios::in);
+                readInventory(file, entry_idx);
+                file.close();
+                break;
+            case 3:
+                //change record
+                cout << "Enter desired index: " << endl;
+                getline(cin, input);
+                stringstream(input) >> entry_idx;
+                if (entry_idx < 0)
+                {
+                    cout << "Invalid index. Must be a positive integer." << endl;
+                    break;
+                }
+
+                file.open(filename, ios::binary | ios::in | ios::out);
+                editInventory(file, entry_idx);
+                file.close();
+                break;
+            case 4:
+                cout << "Exiting." << endl;
+                break;
+            default:
+                cout << "Invalid selection." << endl;
+                break;
         }
     }
+    
     return 0;
 }
 
-void readInventory(fstream &file, int idx)
+bool isValid(const Inventory inv)
 {
-    Inventory inv;
-    long start = idx * sizeof(Inventory);
-    file.clear();
-    file.seekg(start, ios::beg);
-    file.read(reinterpret_cast<char *> (&inv), sizeof(Inventory));
-    cout << inv.desc; //add rest of functionality later
+    //checks validity of numbers. cstring handling is carried out during input
+    return inv.cost >= 0 && inv.price >= 0 && inv.quantity >= 0;
 }
 
-Inventory createInventory()
+void addInventory(fstream &file)
 {
-    //define inventory variable
     Inventory inv;
-
-    //define description
-    while (true)
+    
+    cout << "Enter item description: " << endl;
+    string buffer;
+    getline(cin, buffer);
+    if (strlen(buffer.c_str()) < inv.DESC_SIZE)
     {
-        string desc;
-        cout << "Enter item description (100 char MAX): " << endl;
-        getline(cin, desc);
-        // -1 to include null terminator
-        if(strlen(desc.c_str()) > inv.DESC_SIZE - 1) { cout << "Description too large." << endl; }
-        else { strcpy(inv.desc, desc.c_str()); break; }
+        strcpy(inv.desc, buffer.c_str());
+    }
+    else
+    {
+        cout << "String too large. Max " << inv.DESC_SIZE - 1 << " characters." << endl;
+        return;
     }
 
-    //define quantity
-    while (true)
+    cout << "Enter quantity:" << endl;
+    getline(cin, buffer);
+    stringstream(buffer) >> inv.quantity;
+    if (inv.quantity < 0)
     {
-        string quant;
-        cout << "Enter item quantity: " << endl;
-        getline(cin, quant);
-        istringstream str(quant);
-        int q_int;
-        if (str >> q_int && q_int > -1) { inv.quantity = q_int; break; }
-        else { cout << "Please enter a valid, non-negative integer." << endl; }
+        cout << "Quantity must be positive." << endl;
+        return;
     }
 
-    //define cost
-    while (true)
+    cout << "Enter cost:" << endl;
+    getline(cin, buffer);
+    stringstream(buffer) >> inv.cost;
+    if (inv.cost < 0)
     {
-        string cost;
-        cout << "Enter item cost: " << endl;
-        getline(cin, cost);
-        istringstream str(cost);
-        double c_dub;
-        if (str >> c_dub && c_dub >= 0) { inv.cost = c_dub; break; }
-        else { cout << "Please enter a valid, non-negative double." << endl; }
+        cout << "Cost must be positive." << endl;
+        return;
     }
 
-    //define price
-    while (true)
+    cout << "Enter price:" << endl;
+    getline(cin, buffer);
+    stringstream(buffer) >> inv.price;
+    if (inv.price < 0)
     {
-        string price;
-        cout << "Enter item price: " << endl;
-        getline(cin, price);
-        istringstream str(price);
-        double p_dub;
-        if (str >> p_dub && p_dub >= 0) { inv.price = p_dub; break; }
-        else { cout << "Please enter a valid, non-negative double." << endl; }
+        cout << "Price must be positive." << endl;
+        return;
     }
 
-    //define date
-    while (true)
+    cout << "Enter date:" << endl;
+    getline(cin, buffer);
+    if (strlen(buffer.c_str()) < inv.DATE_SIZE)
     {
-        string date;
-        cout << "Enter item description (100 char MAX): " << endl;
-        getline(cin, date);
-        // -1 to include null terminator
-        if(strlen(date.c_str()) > inv.DATE_SIZE - 1) { cout << "Date too large." << endl; }
-        else { strcpy(inv.date, date.c_str()); break; }
+        strcpy(inv.date, buffer.c_str());
+    }
+    else
+    {
+        cout << "String too large. Max " << inv.DATE_SIZE - 1 << " characters." << endl;
+        return;
     }
 
-    return inv;
+    if (isValid(inv))
+    {
+        file.write(reinterpret_cast<char *> (&inv), sizeof(Inventory));
+        cout << "Success." << endl;
+    }
+    else
+    {
+        cout << "Invalid input. Entry not written." << endl;
+    }
+}
+
+void editInventory(fstream &file, const int idx)
+{
+    Inventory inv;
+    //access start of file
+    file.seekg(idx * sizeof(Inventory), ios::beg);
+    file.read(reinterpret_cast<char *> (&inv), sizeof(Inventory));
+
+    //if read fails, exit function
+    if (file.fail())
+    {
+        cout << "No existing file found at index " << idx << '.' << endl;
+        return;
+    }
+
+    //copy pasted from addInventory()
+    cout << "Enter item description: " << endl;
+    string buffer;
+    getline(cin, buffer);
+    if (strlen(buffer.c_str()) < inv.DESC_SIZE)
+    {
+        strcpy(inv.desc, buffer.c_str());
+    }
+    else
+    {
+        cout << "String too large. Max " << inv.DESC_SIZE - 1 << " characters." << endl;
+        return;
+    }
+
+    cout << "Enter quantity:" << endl;
+    getline(cin, buffer);
+    stringstream(buffer) >> inv.quantity;
+    if (inv.quantity < 0)
+    {
+        cout << "Quantity must be positive." << endl;
+        return;
+    }
+
+    cout << "Enter cost:" << endl;
+    getline(cin, buffer);
+    stringstream(buffer) >> inv.cost;
+    if (inv.cost < 0)
+    {
+        cout << "Cost must be positive." << endl;
+        return;
+    }
+
+    cout << "Enter price:" << endl;
+    getline(cin, buffer);
+    stringstream(buffer) >> inv.price;
+    if (inv.price < 0)
+    {
+        cout << "Price must be positive." << endl;
+        return;
+    }
+
+    cout << "Enter date:" << endl;
+    getline(cin, buffer);
+    if (strlen(buffer.c_str()) < inv.DATE_SIZE)
+    {
+        strcpy(inv.date, buffer.c_str());
+    }
+    else
+    {
+        cout << "String too large. Max " << inv.DATE_SIZE - 1 << " characters." << endl;
+        return;
+    }
+
+    if (isValid(inv))
+    {
+        //move back to original file position
+        file.seekg(idx * sizeof(Inventory), ios::beg);
+        file.write(reinterpret_cast<char *> (&inv), sizeof(Inventory));
+    }
+}
+
+void readInventory(fstream &file, const int idx)
+{
+    Inventory inv;
+    file.seekg(idx * sizeof(Inventory), ios::beg);
+    file.read(reinterpret_cast<char *> (&inv), sizeof(Inventory));
+    
+    if (file.fail())
+    {
+        cout << "No entry found at index " << idx << '.' << endl;
+    }
+    else
+    {
+        cout << setw(17) << left << "Item description" << ": " << inv.desc << endl;
+        cout << setw(17) << left << "Item quantity" << ": " << inv.quantity << endl;
+        cout << setw(17) << left << "Item cost" << ": " << inv.cost << endl;
+        cout << setw(17) << left << "Item price" << ": " << inv.price << endl;
+        cout << setw(17) << left << "Date added" << ": " << inv.date << endl;
+    }
 }
