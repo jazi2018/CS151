@@ -1,0 +1,35 @@
+5. The three file stream data types are  ______ ,  ______ , and  ______  .
+        - fstream, ifstream, ofstream
+
+15. If a file fails to open, the file stream object will be set to  ______  .
+        - false (failbit is set)
+
+39.
+    1. Initialize an int called byte_ctr
+    2. Create an fstream object and open for ios::in and ios::binary
+    3. While not at end of file (!file.eof()):
+            a. Get character from stream
+            b. Iterate byte_ctr
+    4. Return byte_ctr
+
+40.
+    1. Create two fstream objects, both opened to ios::in and ios::binary
+    2. Compare file sizes
+        a. Use seekg(0, ios::end) on both files
+        b. Check if file1.tellg() == file2.tellg()
+        c. If they are NOT equal, return false (the files are different sizes and therefore
+           not identical)
+    3. Use seekg(0, ios::beg) and clear() on both files
+    4. Iterate through the file by bytes (while !file1.eof() && !file2.eof()):
+        a. if file1.get() == file2.get(), continue
+        b. otherwise, return false
+    5. If entire loop is completed, return true
+
+41.
+    1. Open source file for ios::in | ios::binary
+    2. Open destination file for ios::out | ios::binary
+    3. use seekg(0, ios::end) on source file object
+    4. While not source file .fail():
+        a. Set a char variable to sourcefile.peek()
+        b. Write the char varaible to destination file with .write()
+        c. Move character pointer back one by using seekg(-1L, ios::cur)
