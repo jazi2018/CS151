@@ -11,6 +11,7 @@
  *      with code 1. Otherwise, close the file.
  *   2. Display a menu with choices to add, view and edit files, or exit the program.
  *   3. Get user input for the menu. Compare cases using a switch statement.
+ *   4. Repeatedly get user input until exit is selected.
  * 
  *      Adding files:
  *          (Before entering the function, open file to filename with binary, out, and app flags)
@@ -30,9 +31,19 @@
  *          2. Seekg to idx * sizeof(Inventory) from ios::beg
  *          3. Read to the placeholder Inventory object
  *          4. If file has any failure flag, print that the index is invalid and return
- *          5. Otherwise, print each member.
- *          TODO: Finish writing algorithm
- *          
+ *          5. Otherwise, print each member of the placeholder inventory object.
+ *          (After exiting the function, close file)
+ * 
+ *      Editing files:
+ *          (Before entering the function, open file to filename with binary, in, and out flags.
+ *           Pass desired index to function.)
+ *          1. Follow the steps for reading files.
+ *          2. At step 5 (of reading files), when printing the values, include numbers in front.
+ *          3. Accept user input for a number. Use a switch statement to prompt for input using
+ *             the same error checking as present in writing files for the selected data member.
+ *             Update the value in the placeholder inventory object.
+ *          4. Write the inventory object to the file using file.write() and idx * sizeof(Inventory)
+ *          (After exiting the function, close file)
  */
 #include <iostream>
 #include <fstream>      //for file access
