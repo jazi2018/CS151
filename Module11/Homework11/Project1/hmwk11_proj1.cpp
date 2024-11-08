@@ -1,4 +1,4 @@
-/* hmwk11_proj1.cpp - <simple description>
+/* hmwk11_proj1.cpp - Program that iteratively calculates a factorial
  * Author:     Jared Ziv
  * Module:     11
  * Project:    Homework, Part 1
@@ -9,8 +9,13 @@
  * Algorithm:
  *  1. Initialize an unsigned long long variable 'total' to the input 'num'
  *  2. Initialize another unsigned long long 'prev' to 'num' (for overflow checking)
- *  3. Check if 'num' is 0. If true, return 1;
- *  4. While TODO : THIS IS WHERE I WAS WORKING LAST
+ *  3. Check if num is 0. If true, return 1
+ *  4. While num > 2
+ *      a. Decrement num by 1
+ *      b. Multiply total by new value of num
+ *      c. Check if total is less than prev. If true, print an overflow error message
+ *         and return 0. Otherwise update prev to total
+ *  5. After loop ends, return final value of total
  */
 #include <iostream>
 
