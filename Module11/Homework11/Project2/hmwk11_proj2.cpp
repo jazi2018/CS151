@@ -15,9 +15,12 @@ bool isMember(int arr[], const int arr_size, int val);
 
 int main()
 {
-    const int ARR_SIZE = 5;
-    int arr[5];
+    int ARR_SIZE;
     string arr_str = "[ ";
+    //allocate array
+    cout << "Enter size of array: ";
+    cin >> ARR_SIZE;
+    int * arr = new int[ARR_SIZE];
     //populate array
     for (int i = 0; i < ARR_SIZE; i++)
     {
