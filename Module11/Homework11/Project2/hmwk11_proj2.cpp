@@ -1,11 +1,20 @@
-/* hmwk11_proj2.cpp - <simple description>
+/* hmwk11_proj2.cpp - Searches for values in user defined array
  * Author:     Jared Ziv
  * Module:     11
  * Project:    Homework, Part 2
- * Problem statement:  <problem statement>
+ * Problem statement:  Write a recursive Boolean function named isMember.
+ *      The function should accept three parameters: an array of integers,
+ *      the size of the array, and an value to be searched for in the array.
+ *      The function should return true if the value is found in the array
+ *      or false if the value is not found.
  *
  * Algorithm:
- *   1.  <detailed algorithm>
+ *  1. Check if arr_size is 0, return false if true
+ *  2. Check if value at current index is val, return true if true
+ *  3. Otherwise return isMember with:
+ *      a. arr + 1 (move to next element in array)
+ *      b. arr_size - 1 (decrease array size by 1, ensuring proper bounds)
+ *      c. val
  */
 #include <iostream>
 
