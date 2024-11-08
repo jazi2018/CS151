@@ -14,11 +14,11 @@ place each programming project in its own program file.
 
 For the next four questions, suppose that classes  Dog  and  Cat  derive from  Animal,  which in turn derives from  Creature.  Suppose further that  pDog,  pCat,  pAnimal,  and  pCreature  are pointers to their respective classes:
 ```cpp
-  Creature *pCreature ;  
-  Animal *pAnimal ;
-  Dog *pDog ;
-  Cat *pCat ;
-  ```
+Creature *pCreature ;  
+Animal *pAnimal ;
+Dog *pDog ;
+Cat *pCat ;
+```
  
 Finally, suppose that  Animal  and  Creature  are both abstract classes, but  Dog  and  Cat  are not abstract.
 
@@ -77,7 +77,7 @@ virtual int fun(int value) = 0 ;
  
 as a stand-in for an actual sequence, and two member functions with prototypes:
 ```cpp
-void printSeq(int low, int high} ;  
+void printSeq(int low, int high) ;  
 int sumSeq(int low, int high) ;
 ```
  
