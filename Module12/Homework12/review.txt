@@ -1,0 +1,41 @@
+2. A member function of a class that is not completely implemented (only the
+   function header is provided) so that all concrete descendant classes must
+   implement that function is called a(n) ______ function.
+        - abstract / pure virtual
+
+8. A base class pointer needs to be ______  to be assigned to a derived class pointer.
+        - downcast
+
+11. If every  C1  class object can be used as a  C2  class object, the relationship
+    between the two classes should be implemented using  ______
+        - inheritance
+
+13. The keyword  ______  prevents a member function from being overridden in a descandant
+    class.
+        - final
+
+14. To have the compiler check that a member function in a child overrides a virtual
+    member function in the parent, you should use the keyword  ______  after the function
+    declaration in the child class.
+        - override
+
+15. Will the statement:
+    Animal a;
+    compile? If not, why not?
+        - No. Animal is an abstract class, so objects of it cannot be instantiated.
+
+16. Will the statement:
+    pAnimal = new Cat;
+    compile? If not, why not?
+        - Yes
+
+17. Will the statement:
+    pCreature = new Dog ;
+    compile? If not, why not?
+        - Yes
+
+18. Will the statement:
+    pCat = new Animal ;
+    compile? If not, why not?
+        - No. Firstly, Animal is an abstract class and could not be instantiated.
+          Second, a pointer to a derived class cannot point to the base class.
