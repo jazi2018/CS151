@@ -1,0 +1,22 @@
+Program 1:
+    5
+    4
+
+Program 2:
+    15
+    15
+
+Program 3:
+    15
+    5
+
+Program 4:
+    Inside getVal(), a: 12
+    12
+    Inside twist(Second - before, b: 8
+    Inside twist(Second - after, b: 80
+    Inside getVal(), a: 3
+    3
+
+Program 5:
+    6
