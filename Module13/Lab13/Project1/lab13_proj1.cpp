@@ -1,4 +1,4 @@
-/* lab13_proj1.cpp - <simple description>
+/* lab13_proj1.cpp - Reports perfect squares from 0 to 25
  * Author:     Jared Ziv
  * Module:     13
  * Project:    Lab, Part 1
