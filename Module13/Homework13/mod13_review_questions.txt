@@ -1,0 +1,37 @@
+1. The line containing a throw statement is known as the  ______  .
+        - throw point
+2. The  ______  block should enclose code that directly or indirectly might cause an exception to be thrown.
+        - try
+4. When writing function or class templates, you use a(n)  ______  to specify a generic data type.
+        - typename
+5. The beginning of a template is marked by a(n)  ______  .
+        - template prefix
+7. A(n)  ______  container organizes data in a successive and continuous fashion similar to an array.
+        - sequential
+8. A(n)  ______   container uses keys to rapidly access elements.
+        - associative
+11. Write a function template that takes a generic array of a given size as a parameter and reverses the order of the elements
+    without using a second array.  The first parameter of the function should be the array, and the second parameter should be
+    the size of the array.
+        -   template <typename T>
+            void reverse(T *arr, const int size)
+            {
+                T temp = T();
+                for (int i = 0; i < size; i++)
+                {
+                    if (i >= size - 1 - i)
+                    {
+                        break;
+                    }
+
+                    temp = arr[size - 1 - i];
+                    arr[size - 1 - i] = arr[i];
+                    arr [i] = temp;
+                }
+            }
+12. Write a function template that is capable of adding any two numeric values of the same data type and returning the result.
+        -   template <typename T>
+            T add(const T a, const T b)
+            {
+                return a + b;
+            }
