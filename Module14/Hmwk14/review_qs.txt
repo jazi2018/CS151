@@ -1,0 +1,27 @@
+10. void printSecond(ListNode *ptr)
+    {
+        if (ptr->next == nullptr)
+        {
+            cout << "No valid node accessible." << endl;
+        }
+        else
+        {
+            cout << ptr->next->value << endl;
+        }
+    }
+
+12. ListNode * removeFirst(ListNode *ptr)
+    {
+        if (ptr == nullptr)
+        {
+            return nullptr;
+        }
+        ListNode * head = ptr->next;
+        delete ptr;
+        return head;
+    }
+
+14. 34.2
+    34.2
+
+16. 31.5
