@@ -17,33 +17,34 @@ using namespace std;
 class Entity
 {
     private:
-        const int MAX_HEALTH;
+        int MAX_HEALTH;
         int health;
         bool is_alive;  //will handle is_alive logic in takeDamage()
         //inventory implemented after items'
-        Coordinate position;
     
     protected:
         int atk;
+        Coordinate position;
     
     public:
         //default constructor
         Entity() : health(0), atk(0), is_alive(false), MAX_HEALTH(0),
         position(Coordinate(-1,-1)) {}
         //parameterized constructor
-        Entity(int health, int atk, int max, Coordinate pos) : health(health), atk(atk),
-        is_alive(true), MAX_HEALTH(max), position(pos) {}
+        Entity(int health, int atk, int max) : health(health), atk(atk),
+        is_alive(true), MAX_HEALTH(max), position(Coordinate(-1,-1)) {}
 
         bool takeDamage(int dmg);
         bool healDamage(int healing);
         bool isAlive();
+        void setCoord(Coordinate coord);
+        Coordinate getCoord();
 
         //accesor
         int getHealth() { return health; }
 
         //pure virtual. children must implement attack
         virtual int attack() = 0;
-
 };
 
 bool Entity::takeDamage(int dmg)
@@ -71,4 +72,14 @@ bool Entity::healDamage(int healing)
 bool Entity::isAlive()
 {
     return is_alive;
+}
+
+void Entity::setCoord(Coordinate coord)
+{
+    position = coord;
+}
+
+Coordinate Entity::getCoord()
+{
+    return position;
 }

@@ -11,8 +11,8 @@ class Monster : public Entity
         //default constructor
         Monster() : Entity() {}
         //parameterized constructor
-        Monster(int health, int atk, int max, Coordinate pos) :
-        Entity(health, atk, max, pos) {}
+        Monster(int health, int atk, int max, int max_width, int max_height) :
+        Entity(health, atk, max) { position.genCoord(max_width, max_height); }
         virtual int attack() override;
 };
 

@@ -121,6 +121,10 @@ class Map
             return *this;
         }
 
+        //accessors
+        int getWidth() { return width; }
+        int getHeight() { return height; }
+
         //member functions
         Coordinate genCoord()
         {
@@ -130,20 +134,24 @@ class Map
             return Coordinate(x, y);
         }
 
-        void populate()
+        void populate(Monster *monster_list, Item *item_list)
         {
-            cout << "num_monsters: " << num_monsters << endl;
-            cout << "num_items: " << num_items << endl;
-            //generate monster positions
+            //populate monsters
             for (int i = 0; i < num_monsters; i++)
             {
                 //generate positions until a position is found
                 //that does not already exist in the set (i.e. count == 0)
-                Coordinate position;
-                do
+                Coordinate position = monster_list[i].getCoord();
+                if (used_pos.count(position) > 0) //if in list
                 {
-                    position = genCoord();
-                } while (used_pos.count(position) != 0);
+                    do
+                    {
+                        //generate new positions until not in list
+                        position.genCoord(width, height);
+                    } while (used_pos.count(position) != 0);
+                    //update monster position if changed
+                    monster_list[i].setCoord(position);
+                }
 
                 monsters[i] = position;
                 used_pos.insert(position);
@@ -152,24 +160,33 @@ class Map
                 grid[position.y][position.x] = 'M';
             }
 
-            //generate item positions
+            //populate items
             for (int i = 0; i < num_items; i++)
             {
-                Coordinate position;
-                do
+                //generate positions until a position is found
+                //that does not already exist in the set (i.e. count == 0)
+                Coordinate position = item_list[i].getCoord();
+                if (used_pos.count(position) > 0) //if in list
                 {
-                    position = genCoord();
-                } while (used_pos.count(position) != 0);
+                    do
+                    {
+                        //generate new positions until not in list
+                        position.genCoord(width, height);
+                    } while (used_pos.count(position) != 0);
+                    //update item position if changed
+                    item_list[i].setCoord(position);
+                }
 
                 items[i] = position;
                 used_pos.insert(position);
 
-                //populate item position with 'I'
+                //populate monster position with 'M'
                 grid[position.y][position.x] = 'I';
             }
 
-            //place @ at player position
+            //place indicator on player position
             grid[player.y][player.x] = '@';
+            used_pos.insert(player);
         }
 
         void print()
@@ -185,7 +202,7 @@ class Map
         }
 
         //player functions
-        bool movePlayer(int direction)
+        bool movePlayer(Player &player_obj, int direction)
         {
             //direction represents a cardinal direction, starting from
             //north = 0, and moving clockwise (i.e east = 1, south = 2 ...)
@@ -217,42 +234,60 @@ class Map
                 return false;
             }
 
-            //check if anything is on tile
-            if (used_pos.count(next_position) > 0)
-            {
-                //check if monster
-                if (grid[next_position.y][next_position.x] == 'M')
-                {
-                    //find which monster corresponds to the tile
-                    for (int i = 0; i < num_monsters; i++)
-                    {
-                        if (next_position == monsters[i])
-                        {
-                            //remove monster from coordinate list
-                            monsters[i] = Coordinate(-1,-1);
-                        }
-                    }
-                }
-                //check if item
-                else if (grid[next_position.y][next_position.x] == 'I')
-                {
-                    //find which item corresponds to the tile
-                    for (int i = 0; i < num_items; i++)
-                    {
-                        if (next_position == items[i])
-                        {
-                            //remove item from coordinate list
-                            items[i] = Coordinate(-1,-1);
-                        }
-                    }
-                }
-            }
             //update player position
             used_pos.erase(player);
             used_pos.insert(next_position);
             grid[player.y][player.x] = '.';
             player = next_position;
             grid[player.y][player.x] = '@';
+            //update player object
+            player_obj.setCoord(player);
             return true;
+        }
+
+        bool playerOnMonster()
+        {
+            if (used_pos.count(player) > 0)
+            {
+                //check if monster
+                if (grid[player.y][player.x] == 'M')
+                {
+                    //find which monster corresponds to the tile
+                    for (int i = 0; i < num_monsters; i++)
+                    {
+                        if (player == monsters[i])
+                        {
+                            //remove monster from coordinate list
+                            monsters[i] = Coordinate(-1,-1);
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        bool playerOnItem()
+        {
+            if (used_pos.count(player) > 0)
+            {
+                //check if monster
+                if (grid[player.y][player.x] == 'M')
+                {
+                    //find which monster corresponds to the tile
+                    for (int i = 0; i < num_items; i++)
+                    {
+                        if (player == items[i])
+                        {
+                            //remove monster from coordinate list
+                            items[i] = Coordinate(-1,-1);
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
 };

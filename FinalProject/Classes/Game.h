@@ -10,13 +10,21 @@
 #include <iostream>
 #include "Player.h"
 #include "Monster.h"
+#include "Item.h"
 #include "Map.h"
 using namespace std;
+
+bool containsCoord(Player player, Monster * monsters, int size);
+bool containsCoord(Player player, Item * items, int size);
 
 class Game
 {
     private:
         Player player;
+        Monster * monsters;
+        Item * items;
+        int num_monsters;
+        int num_items;
         Map map;
     public:
         //default constructor
@@ -26,11 +34,26 @@ class Game
         void runGame();
 };
 
-Game::Game() : player(Player(50, 10, 50, 0, 1))
+Game::Game() : num_monsters(4), num_items(3)
 {
+    //generate initial monster list
+    monsters = new Monster[num_monsters];
+    for (int i = 0; i < num_monsters; i++)
+    {
+        //generate a monster at a random position
+        monsters[i] = Monster(100, 15, 100, map.getWidth(), map.getHeight());
+    }
+
+    //generate initial item list
+    items = new Item[num_items];
+    for (int i = 0; i < num_items; i++)
+    {
+        //generate random items here later (25% chance to be weapon?)
+        items[i] = Item(true, 25, map.getWidth(), map.getHeight());
+    }
     //temporary code for testing
-    map = Map(3, 2);
-    map.populate();
+    map = Map(num_monsters, num_items);
+    map.populate(monsters, items);
 }
 
 void Game::runGame()
@@ -53,6 +76,42 @@ void Game::runGame()
         map.print();
         int direction = 0;
         cin >> direction;
-        map.movePlayer(direction);
+        map.movePlayer(player, direction);
+        if (containsCoord(player, monsters, num_monsters))
+        {
+            //combat with monster
+        }
+        else if (containsCoord(player, items, num_items))
+        {
+            //pick up item
+        }
+
+        cout << "player x = " << player.getCoord().x << " player y = " << player.getCoord().y;
     }
+}
+
+bool containsCoord(Player player, Monster * monsters, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (player.getCoord() == monsters[i].getCoord())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool containsCoord(Player player, Item * items, int size)
+{
+    for (int i = 0; i < size; i++)
+    {
+        if (player.getCoord() == items[i].getCoord())
+        {
+            return true;
+        }
+    }
+
+    return false;
 }

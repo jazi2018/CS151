@@ -1,5 +1,6 @@
 
 #pragma once
+#include <random>
 
 struct Coordinate
 {
@@ -8,6 +9,13 @@ struct Coordinate
 
     Coordinate() : x(0), y(0) {}
     Coordinate(int x, int y) : x(x), y(y) {}
+
+    void genCoord(int width, int height)
+    {
+        //generates and returns a random coordinate
+        x = rand() % width;
+        y = rand() % height;
+    }
 
     //overloaded operators to use in set, since sets must be sorted
     bool operator==(const Coordinate &other) const

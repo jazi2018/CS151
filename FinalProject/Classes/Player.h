@@ -19,13 +19,14 @@ class Player : public Entity
         //default constructor
         Player() : xp(0), level(0) {}
         //parameterized constructor
-        Player(int health, int atk, int max, int xp, int level, Coordinate pos) : xp(xp),
-        level(level), Entity(health, atk, max, pos) {}
+        Player(int health, int atk, int max, int xp, int level, int width, int height) :
+        xp(xp), level(level), Entity(health, atk, max) { position.genCoord(width, height); }
         virtual int attack() override;
 };
 
 int Player::attack()
 {
     //if attack is 10, can deal anywhere from 5 - 14 dmg
+    //includes damage from items as well
     return rand() % atk + atk / 2;
 }
