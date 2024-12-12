@@ -10,7 +10,8 @@ int main()
 
     //take input function that will return the input and make sure its a valid selection
     //by checking an array of inputs
-
+    srand(time(NULL));
+    
     Game game;
     game.runGame();
 
