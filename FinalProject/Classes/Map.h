@@ -24,7 +24,7 @@ class Map
         //dimensions of map grid (always 15x10)
         static const int width = 15;
         static const int height = 10;
-        char grid[width][height];
+        char grid[height][width];
     
     public:
         //default constructor
@@ -49,8 +49,8 @@ class Map
         }
 
         //parameterized constructor
-        Map(int num_monsters, int num_items) :
-        num_monsters(num_monsters), num_items(num_items), player(Coordinate(0,0))
+        Map(int num_monsters, int num_items, Player player) :
+        num_monsters(num_monsters), num_items(num_items)//, player(player.getCoord())
         {
             //allocate array for monsters and items
             monsters = (num_monsters > 0) ? new Coordinate[num_monsters] : nullptr;
@@ -65,6 +65,8 @@ class Map
                     grid[i][j] = '.';
                 }
             }
+            this->player = player.getCoord();
+            cout << "Player coord from Map(): " << this->player.x << "," << this->player.y << endl;
         }
 
         //destructor
@@ -126,13 +128,13 @@ class Map
         int getHeight() { return height; }
 
         //member functions
-        Coordinate genCoord()
-        {
-            //generates and returns a random coordinate
-            int x = rand() % width;
-            int y = rand() % height;
-            return Coordinate(x, y);
-        }
+        // Coordinate genCoord()
+        // {
+        //     //generates and returns a random coordinate
+        //     int x = rand() % width;
+        //     int y = rand() % height;
+        //     return Coordinate(x, y);
+        // }
 
         void populate(Monster *monster_list, Item *item_list)
         {
@@ -142,8 +144,9 @@ class Map
                 //generate positions until a position is found
                 //that does not already exist in the set (i.e. count == 0)
                 Coordinate position = monster_list[i].getCoord();
-                if (used_pos.count(position) > 0) //if in list
+                if (used_pos.count(position) != 0) //if in list
                 {
+                    cout << "same monster pos" << endl;
                     do
                     {
                         //generate new positions until not in list
@@ -166,8 +169,9 @@ class Map
                 //generate positions until a position is found
                 //that does not already exist in the set (i.e. count == 0)
                 Coordinate position = item_list[i].getCoord();
-                if (used_pos.count(position) > 0) //if in list
+                if (used_pos.count(position) != 0) //if in list
                 {
+                    cout << "same item pos" << endl;
                     do
                     {
                         //generate new positions until not in list
@@ -180,7 +184,7 @@ class Map
                 items[i] = position;
                 used_pos.insert(position);
 
-                //populate monster position with 'M'
+                //populate item position with 'I'
                 grid[position.y][position.x] = 'I';
             }
 
@@ -227,8 +231,8 @@ class Map
             }
 
             //check bounds of movement
-            if (next_position < Coordinate(0,0) ||
-                next_position >= Coordinate(width, height))
+            if (next_position.x < 0 || next_position.y < 0 ||
+                next_position.x >= width || next_position.y >= height)
             {
                 //out of bounds
                 return false;
@@ -272,15 +276,15 @@ class Map
         {
             if (used_pos.count(player) > 0)
             {
-                //check if monster
-                if (grid[player.y][player.x] == 'M')
+                //check if Item
+                if (grid[player.y][player.x] == 'I')
                 {
-                    //find which monster corresponds to the tile
+                    //find which Item corresponds to the tile
                     for (int i = 0; i < num_items; i++)
                     {
                         if (player == items[i])
                         {
-                            //remove monster from coordinate list
+                            //remove Item from coordinate list
                             items[i] = Coordinate(-1,-1);
                             return true;
                         }

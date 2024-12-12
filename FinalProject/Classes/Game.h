@@ -34,7 +34,8 @@ class Game
         void runGame();
 };
 
-Game::Game() : num_monsters(4), num_items(3)
+Game::Game() : num_monsters(4), num_items(3),
+player(Player(100, 10, 100, 0, 1)), map(Map(num_monsters, num_items, player))
 {
     //generate initial monster list
     monsters = new Monster[num_monsters];
@@ -52,7 +53,7 @@ Game::Game() : num_monsters(4), num_items(3)
         items[i] = Item(true, 25, map.getWidth(), map.getHeight());
     }
     //temporary code for testing
-    map = Map(num_monsters, num_items);
+    //map = Map(num_monsters, num_items, player);
     map.populate(monsters, items);
 }
 
@@ -80,13 +81,15 @@ void Game::runGame()
         if (containsCoord(player, monsters, num_monsters))
         {
             //combat with monster
+            cout << "Monster" << endl;
         }
         else if (containsCoord(player, items, num_items))
         {
             //pick up item
+            cout << "Item" << endl;
         }
 
-        cout << "player x = " << player.getCoord().x << " player y = " << player.getCoord().y;
+        cout << "player x = " << player.getCoord().x << " player y = " << player.getCoord().y << endl;
     }
 }
 

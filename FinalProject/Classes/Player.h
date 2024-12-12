@@ -19,8 +19,8 @@ class Player : public Entity
         //default constructor
         Player() : xp(0), level(0) {}
         //parameterized constructor
-        Player(int health, int atk, int max, int xp, int level, int width, int height) :
-        xp(xp), level(level), Entity(health, atk, max) { position.genCoord(width, height); }
+        Player(int health, int atk, int max, int xp, int level) :
+        xp(xp), level(level), Entity(health, atk, max) { position = Coordinate(0,0); }
         virtual int attack() override;
 };
 
