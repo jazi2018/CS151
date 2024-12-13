@@ -7,6 +7,7 @@ using namespace std;
 
 class Monster : public Entity
 {
+    //could add private member for amount of xp given
     public:
         //default constructor
         Monster() : Entity() {}

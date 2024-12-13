@@ -30,10 +30,15 @@ class Game
         //default constructor
         Game();
 
+        //returns t/f if player is alive
+        bool combat(Monster &enemy);
+
         //main game loop
         void runGame();
 };
 
+//TODO: enemy scaling to make it a game and save state with binary file
+//initializing player to default values
 Game::Game() : num_monsters(4), num_items(3),
 player(Player(100, 10, 100, 0, 1)), map(Map(num_monsters, num_items, player))
 {
@@ -55,6 +60,54 @@ player(Player(100, 10, 100, 0, 1)), map(Map(num_monsters, num_items, player))
     //temporary code for testing
     //map = Map(num_monsters, num_items, player);
     map.populate(monsters, items);
+}
+
+bool Game::combat(Monster &enemy)
+{
+    while(enemy.isAlive() && player.isAlive())
+    {
+        //monster will attack first
+        int damage = enemy.attack();
+        cout << "Monster attacks for " << damage << " damage!" << endl;
+        player.takeDamage(damage);
+        cout << "You have " << player.getHealth() << " health remaining." << endl;
+        if (!player.isAlive())
+        {
+            //player died
+            return false;
+        }
+
+        cout << endl << "Your turn!" << endl;
+        int selection = 0;
+        while (selection != 1 && selection != 2)
+        {
+            cout << "1. Attack" << endl;
+            cout << "2. Use potion" << endl;
+            cin >> selection;
+            switch (selection)
+            {
+                case 1:
+                    damage = player.attack();
+                    cout << "You attack for " << damage << " damage!" << endl;
+                    enemy.takeDamage(damage);
+                    cout << "The monster has " << enemy.getHealth() << " health remaining." << endl;
+                    if (!enemy.isAlive())
+                    {
+                        return true;
+                    }
+                    break;
+                case 2:
+                    if (!player.usePotion())
+                    {
+                        //so that loop begins again
+                        selection = 0;
+                    }
+                    break;
+                default:
+                    cout << "Invalid selection" << endl;
+            }
+        }
+    }
 }
 
 void Game::runGame()
@@ -81,15 +134,32 @@ void Game::runGame()
         if (containsCoord(player, monsters, num_monsters))
         {
             //combat with monster
-            cout << "Monster" << endl;
+            //find monster at coordinate
+            for (int i = 0; i < num_monsters; i++)
+            {
+                if (monsters[i].getCoord() == player.getCoord())
+                {
+                    bool success = combat(monsters[i]);
+                    if (!success)
+                    {
+                        cout << "You lose!" << endl;
+                        return;
+                    }
+                }
+            }
         }
         else if (containsCoord(player, items, num_items))
         {
             //pick up item
-            cout << "Item" << endl;
+            //find item at coordinate
+            for (int i = 0; i < num_items; i++)
+            {
+                if (items[i].getCoord() == player.getCoord())
+                {
+                    player.addItem(items[i]);
+                }
+            }
         }
-
-        cout << "player x = " << player.getCoord().x << " player y = " << player.getCoord().y << endl;
     }
 }
 

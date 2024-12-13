@@ -28,6 +28,7 @@ class Item
         //healing vs damage logic will be in class above
         int use() { return magnitude; }
 
+        bool isPotion() { return is_potion; }
         //coord accessor / mutator
         void setCoord(Coordinate coord)
         {
