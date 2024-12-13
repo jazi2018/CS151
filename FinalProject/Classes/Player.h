@@ -16,15 +16,13 @@ using namespace std;
 class Player : public Entity
 {
     private:
-        int level;  //implementing this later
-        int xp;     //need 100 xp to level up
         vector<Item> inventory;
     public:
         //default constructor
-        Player() : xp(0), level(0) {}
+        Player() {}
         //parameterized constructor
-        Player(int health, int atk, int max, int xp, int level) :
-        xp(xp), level(level), Entity(health, atk, max) { position = Coordinate(0,0); }
+        Player(int health, int atk, int max) :
+        Entity(health, atk, max) { position = Coordinate(0,0); }
         virtual int attack() override;
 
         //inventory management

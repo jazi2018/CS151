@@ -17,7 +17,6 @@ using namespace std;
 class Entity
 {
     private:
-        int MAX_HEALTH;
         int health;
         bool is_alive;  //will handle is_alive logic in takeDamage()
         //inventory implemented after items'
@@ -25,10 +24,11 @@ class Entity
     protected:
         int atk;
         Coordinate position;
+        int MAX_HEALTH;
     
     public:
         //default constructor
-        Entity() : health(0), atk(0), is_alive(false), MAX_HEALTH(0),
+        Entity() : health(0), atk(0), is_alive(true), MAX_HEALTH(0),
         position(Coordinate(-1,-1)) {}
         //parameterized constructor
         Entity(int health, int atk, int max) : health(health), atk(atk),

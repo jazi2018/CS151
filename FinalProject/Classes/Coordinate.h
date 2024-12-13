@@ -1,4 +1,15 @@
-
+/* Coordinate.h - Struct to store and manage coordinates
+ * Author:  Jared Ziv
+ * Module:  Final Project
+ * 
+ * Description: Stores an int x and int y value for coordiantes.
+ *      I made this struct so I could easily store and manipulate
+ *      coordinate values in the Map class. I overloaded most
+ *      comparison operators, so that the coordinates could be
+ *      stored in a set (since sets are pre-sorted). Also includes
+ *      a member function that will generate a random position in
+ *      a given width/height area.
+ */
 #pragma once
 #include <random>
 

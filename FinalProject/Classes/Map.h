@@ -1,4 +1,18 @@
-
+/* Map.h - Class representing the game map and its elements
+ * Author:  Jared Ziv
+ * Module:  Final Project
+ * 
+ * Description: Map class that manages the game's 2D grid, including
+ *      player, monster, and item positions. It handles map generation,
+ *      population, movement, and tile checking. In an attempt to provide
+ *      good encapsulation (as in the Map class ONLY manages map related
+ *      events) I WAY overcomplicated it. It only considers coordinates
+ *      of the player, monsters, and items, and uses dynamic memory
+ *      allocation to do so.
+ *      I used the STL Set data structure to store used coordinates,
+ *      since it can only contain unique items. This also contributed
+ *      to its overcomplication, but I thought it made sense logically.
+ */
 #pragma once
 #include <iostream>
 #include <set> // data structure from C++ STL
@@ -66,7 +80,6 @@ class Map
                 }
             }
             this->player = player.getCoord();
-            cout << "Player coord from Map(): " << this->player.x << "," << this->player.y << endl;
         }
 
         //destructor
@@ -127,15 +140,6 @@ class Map
         int getWidth() { return width; }
         int getHeight() { return height; }
 
-        //member functions
-        // Coordinate genCoord()
-        // {
-        //     //generates and returns a random coordinate
-        //     int x = rand() % width;
-        //     int y = rand() % height;
-        //     return Coordinate(x, y);
-        // }
-
         void populate(Monster *monster_list, Item *item_list)
         {
             //populate monsters
@@ -146,7 +150,6 @@ class Map
                 Coordinate position = monster_list[i].getCoord();
                 if (used_pos.count(position) != 0) //if in list
                 {
-                    cout << "same monster pos" << endl;
                     do
                     {
                         //generate new positions until not in list
@@ -171,7 +174,6 @@ class Map
                 Coordinate position = item_list[i].getCoord();
                 if (used_pos.count(position) != 0) //if in list
                 {
-                    cout << "same item pos" << endl;
                     do
                     {
                         //generate new positions until not in list
